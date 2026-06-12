@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-06-12T22:55:00Z",
+      "error_message": "SyntaxError: invalid syntax — '<<<<<<< HEAD' in src/*.py (all 5 pipeline scripts fail py_compile)",
+      "file": "src/data_preprocessing.py, src/feature_selection.py, src/modeltrain.py, src/evaluate_model.py, src/predict.py",
+      "root_cause": "Repo is mid-merge (git status: unmerged paths, 'both added'). Merge of commit e24bc1ea left unresolved conflict markers in every script. Conflict is identical in all files: HEAD imports FEATURES from config.py vs. other branch defines FEATURES inline.",
+      "fix": "NOT YET APPLIED (check-only session). Recommended resolution: keep HEAD side (from config import FEATURES) and delete the inline FEATURES list — config.py exists, is tracked, and contains the identical 9-feature list. Then git add + git commit to complete the merge.",
+      "tags": ["merge-conflict", "syntax-error", "git", "all-scripts"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-12T22:55:00Z"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-06-12T22:55:00Z",
+      "error_message": "FileNotFoundError risk: ../data/Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv — data/ directory does not exist in the repo",
+      "file": "src/data_preprocessing.py, src/feature_selection.py, src/modeltrain.py, src/evaluate_model.py",
+      "root_cause": "CICIDS2017 dataset CSV is gitignored (large file) and must be downloaded separately. data_preprocessing.py has no try/except fallback (others fall back to the same missing raw CSV anyway).",
+      "fix": "RESOLVED 2026-06-12: created data/ directory, downloaded the CSV (76,906,168 bytes) from Hugging Face mirror c01dsnap/CIC-IDS2017 (resolve/main URL), verified 286,467 rows x 79 cols with all 9 FEATURES + Label present. Added data/README.md with re-download instructions.",
+      "tags": ["missing-data", "filenotfound", "dataset", "cicids2017"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-06-12T22:55:00Z"
+    }
+  ]
+}
